@@ -169,7 +169,7 @@ const UniversityManagement = () => {
                                 University Management
                             </CardTitle>
                             <CardDescription>
-                                Manage universities and colleges for Campus Comfort platform
+                                Manage universities and colleges for GODIRECT platform
                             </CardDescription>
                         </div>
                         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>

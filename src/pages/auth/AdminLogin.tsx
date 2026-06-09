@@ -6,7 +6,7 @@ export default function AdminLogin() {
   return (
     <>
       <Helmet>
-        <title>Admin Login | Tonys Estate</title>
+        <title>Admin Login | GODIRECT</title>
       </Helmet>
 
       <AuthForm

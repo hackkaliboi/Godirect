@@ -15,8 +15,9 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center">
+              <img src="/Asset 6@4x.png" alt="GODIRECT Logo" className="h-10 mr-2" />
               <h2 className="text-2xl font-bold text-primary-foreground">
-                Tonys Estate
+                GODIRECT
               </h2>
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed max-w-xs">
@@ -106,7 +107,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 text-primary-foreground/80 mr-2 flex-shrink-0" />
-                <span className="text-primary-foreground/80">info@tonysestate.com</span>
+                <span className="text-primary-foreground/80">info@godirect.com</span>
               </li>
             </ul>
           </div>
@@ -139,7 +140,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-12 pt-8 text-center text-xs text-primary-foreground/70">
-          <p>© {new Date().getFullYear()} Tonys Estate. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} GODIRECT. All rights reserved.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2">
             <Link to="/" className="hover:text-accent transition-colors">Privacy Policy</Link>
             <Link to="/" className="hover:text-accent transition-colors">Terms of Service</Link>

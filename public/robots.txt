@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://campuscomfort.com/sitemap.xml
+Sitemap: https://godirect.ng/sitemap.xml

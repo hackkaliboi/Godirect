@@ -98,23 +98,23 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Tonys Estate | Find Your Perfect Home</title>
-        <meta name="description" content="Find your perfect property with Tonys Estate. Browse thousands of properties across Nigeria." />
+        <title>GODIRECT | Find Your Perfect Home</title>
+        <meta name="description" content="Find your perfect property with GODIRECT. Browse thousands of properties across Nigeria." />
         <meta name="keywords" content="real estate, properties, houses, apartments, Nigeria, rentals, for sale" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://tonysestate.com/" />
-        <meta property="og:title" content="Tonys Estate | Find Your Perfect Home" />
-        <meta property="og:description" content="Find your perfect property with Tonys Estate. Browse thousands of properties across Nigeria." />
-        <meta property="og:image" content="https://tonysestate.com/og-image.jpg" />
+        <meta property="og:url" content="https://godirect.com/" />
+        <meta property="og:title" content="GODIRECT | Find Your Perfect Home" />
+        <meta property="og:description" content="Find your perfect property with GODIRECT. Browse thousands of properties across Nigeria." />
+        <meta property="og:image" content="https://godirect.com/og-image.jpg" />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://tonysestate.com/" />
-        <meta property="twitter:title" content="Tonys Estate | Find Your Perfect Home" />
-        <meta property="twitter:description" content="Find your perfect property with Tonys Estate. Browse thousands of properties across Nigeria." />
-        <meta property="twitter:image" content="https://tonysestate.com/og-image.jpg" />
+        <meta property="twitter:url" content="https://godirect.com/" />
+        <meta property="twitter:title" content="GODIRECT | Find Your Perfect Home" />
+        <meta property="twitter:description" content="Find your perfect property with GODIRECT. Browse thousands of properties across Nigeria." />
+        <meta property="twitter:image" content="https://godirect.com/og-image.jpg" />
       </Helmet>
 
       {/* Main hero section with search */}
@@ -251,7 +251,7 @@ const Index = () => {
               What Our <span className="text-accent">Clients</span> Say
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-              Real experiences from clients who found their perfect home with Tonys Estate
+              Real experiences from clients who found their perfect home with GODIRECT
             </p>
           </div>
           <TestimonialsNew />

@@ -230,7 +230,7 @@ const BlogManagement = () => {
                                 Blog Management
                             </CardTitle>
                             <CardDescription>
-                                Create and manage blog posts for Campus Comfort
+                                Create and manage blog posts for GODIRECT
                             </CardDescription>
                         </div>
                         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
@@ -246,7 +246,7 @@ const BlogManagement = () => {
                                         {editingPost ? 'Edit Blog Post' : 'Create New Blog Post'}
                                     </DialogTitle>
                                     <DialogDescription>
-                                        {editingPost ? 'Update blog post information' : 'Create a new blog post for Campus Comfort'}
+                                        {editingPost ? 'Update blog post information' : 'Create a new blog post for GODIRECT'}
                                     </DialogDescription>
                                 </DialogHeader>
                                 <form onSubmit={handleSubmit} className="space-y-4">

@@ -179,7 +179,7 @@ const PropertyPurchase = ({ propertyId, propertyTitle, propertyPrice }: Property
               </div>
               <div className="flex justify-between">
                 <span className="font-medium">Account Name:</span>
-                <span>CAMPUS COMFORT PROPERTIES LTD</span>
+                <span>GODIRECT PROPERTIES LTD</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-medium">Amount:</span>
@@ -251,7 +251,7 @@ const PropertyPurchase = ({ propertyId, propertyTitle, propertyPrice }: Property
                 </div>
               </div>
               <div className="mt-4">
-                <p>After sending the equivalent of ₦{formatPriceWithCommas(propertyPrice)}, please email the transaction hash to payments@tonysestate.com with reference: PROP-{propertyId}</p>
+                <p>After sending the equivalent of ₦{formatPriceWithCommas(propertyPrice)}, please email the transaction hash to payments@godirect.com with reference: PROP-{propertyId}</p>
               </div>
             </div>
           </div>
@@ -271,7 +271,7 @@ const PropertyPurchase = ({ propertyId, propertyTitle, propertyPrice }: Property
                   </div>
                   <div className="flex justify-between">
                     <span>Account Name:</span>
-                    <span>CAMPUS COMFORT PROPERTIES</span>
+                    <span>GODIRECT PROPERTIES</span>
                   </div>
                 </div>
                 <div>
@@ -282,7 +282,7 @@ const PropertyPurchase = ({ propertyId, propertyTitle, propertyPrice }: Property
                   </div>
                   <div className="flex justify-between">
                     <span>Account Name:</span>
-                    <span>CAMPUS COMFORT PROPERTIES</span>
+                    <span>GODIRECT PROPERTIES</span>
                   </div>
                 </div>
               </div>
@@ -307,7 +307,7 @@ const PropertyPurchase = ({ propertyId, propertyTitle, propertyPrice }: Property
               </div>
               <div className="flex justify-between">
                 <span className="font-medium">Account Name:</span>
-                <span>CAMPUS COMFORT PROPERTIES LTD</span>
+                <span>GODIRECT PROPERTIES LTD</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-medium">Amount:</span>
@@ -319,7 +319,7 @@ const PropertyPurchase = ({ propertyId, propertyTitle, propertyPrice }: Property
               </div>
             </div>
             <div className="text-sm mt-4">
-              <p>After making your deposit, please email the deposit slip to deposits@tonysestate.com or upload it through your dashboard.</p>
+              <p>After making your deposit, please email the deposit slip to deposits@godirect.com or upload it through your dashboard.</p>
             </div>
           </div>
         );

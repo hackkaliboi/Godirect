@@ -37,8 +37,9 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Enhanced Logo */}
           <Link to="/" className="flex items-center group">
+            <img src="/Asset 6@4x.png" alt="GODIRECT Logo" className="h-10 md:h-12 mr-2" />
             <h1 className="text-xl md:text-2xl font-bold text-foreground transition-transform duration-300 group-hover:scale-105">
-              Tonys Estate
+              GODIRECT
             </h1>
           </Link>
 

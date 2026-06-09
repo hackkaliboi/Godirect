@@ -232,7 +232,7 @@ const PropertyListings = () => {
   return (
     <>
       <Helmet>
-        <title>Browse Housing | Tonys Estate</title>
+        <title>Browse Housing | GODIRECT</title>
         <meta name="description" content="Browse our extensive collection of student housing near universities. Find apartments, dorms, shared rooms, and more." />
       </Helmet>
 

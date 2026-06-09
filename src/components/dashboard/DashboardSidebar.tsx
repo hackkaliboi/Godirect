@@ -117,8 +117,9 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
       <SidebarContent className="bg-card">
         <div className="p-4 border-b border-border/50">
           <NavLink to="/" className="flex items-center gap-3 group">
+            <img src="/Asset 6@4x.png" alt="GODIRECT Logo" className="h-8" />
             <h2 className="text-xl font-bold text-foreground transition-all duration-300 group-hover:scale-105">
-              Tonys Estate
+              GODIRECT
             </h2>
             <div className="overflow-hidden">
               <p className="text-xs text-muted-foreground capitalize">{userRole} Portal</p>

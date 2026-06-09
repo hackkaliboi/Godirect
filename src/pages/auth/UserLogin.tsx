@@ -6,7 +6,7 @@ export default function UserLogin() {
   return (
     <>
       <Helmet>
-        <title>User Login | Tonys Estate</title>
+        <title>User Login | GODIRECT</title>
       </Helmet>
 
       <AuthForm

@@ -124,7 +124,7 @@ const PropertyDetails = () => {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://campuscomfort.com/properties/${property.id}`} />
+        <meta property="og:url" content={`https://godirect.com/properties/${property.id}`} />
         <meta property="og:title" content={`${property.title} | Tonys Estate`} />
         <meta property="og:description" content={property.description?.substring(0, 160) || ""} />
         {property.images && property.images.length > 0 && (
@@ -133,8 +133,8 @@ const PropertyDetails = () => {
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`https://campuscomfort.com/properties/${property.id}`} />
-        <meta property="twitter:title" content={`${property.title} | Tonys Estate`} />
+        <meta property="twitter:url" content={`https://godirect.com/properties/${property.id}`} />
+        <meta property="twitter:title" content={`${property.title} | GODIRECT`} />
         <meta property="twitter:description" content={property.description?.substring(0, 160) || ""} />
         {property.images && property.images.length > 0 && (
           <meta property="twitter:image" content={property.images[0]} />
