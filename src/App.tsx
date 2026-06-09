@@ -56,19 +56,19 @@ const LoadingComponent = () => (
   </div>
 );
 
-const App = () => {
-  // Create QueryClient instance inside the component
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 1000 * 60 * 5, // 5 minutes
-        gcTime: 1000 * 60 * 10, // 10 minutes (renamed from cacheTime)
-        refetchOnWindowFocus: false,
-        retry: 1,
-      },
+// Create QueryClient instance outside the component (fixes invalid hook call)
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      gcTime: 1000 * 60 * 10, // 10 minutes (renamed from cacheTime)
+      refetchOnWindowFocus: false,
+      retry: 1,
     },
-  });
+  },
+});
 
+const App = () => {
   // Add debugging to see which routes are being matched
   const location = useLocation();
   console.log("Current location:", location.pathname);

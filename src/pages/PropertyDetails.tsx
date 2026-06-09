@@ -119,13 +119,13 @@ const PropertyDetails = () => {
   return (
     <>
       <Helmet>
-        <title>{property.title} | Tonys Estate</title>
+        <title>{property.title} | GODIRECT</title>
         <meta name="description" content={property.description?.substring(0, 160) || ""} />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://godirect.com/properties/${property.id}`} />
-        <meta property="og:title" content={`${property.title} | Tonys Estate`} />
+        <meta property="og:title" content={`${property.title} | GODIRECT`} />
         <meta property="og:description" content={property.description?.substring(0, 160) || ""} />
         {property.images && property.images.length > 0 && (
           <meta property="og:image" content={property.images[0]} />
