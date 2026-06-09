@@ -183,20 +183,32 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     try {
       setLoading(true);
 
-      // Try to load admin settings for default currency
-      const { data: settings, error } = await supabase
-        .from('admin_settings')
-        .select('setting_value')
-        .eq('setting_key', 'default_currency')
-        .single();
+      // Try to load admin settings for default currency, but don't fail
+      try {
+        const { data: settings, error } = await supabase
+          .from('admin_settings')
+          .select('setting_value')
+          .eq('setting_key', 'default_currency')
+          .single();
 
-      if (!error && settings) {
-        const savedCurrencyCode = settings.setting_value;
-        const savedCurrency = currencies.find(c => c.code === savedCurrencyCode);
-        if (savedCurrency) {
-          setCurrentCurrency(savedCurrency);
+        if (!error && settings) {
+          const savedCurrencyCode = settings.setting_value;
+          const savedCurrency = currencies.find(c => c.code === savedCurrencyCode);
+          if (savedCurrency) {
+            setCurrentCurrency(savedCurrency);
+          }
+        } else {
+          // Fallback to localStorage for user preference
+          const savedCurrency = localStorage.getItem('selectedCurrency');
+          if (savedCurrency) {
+            const currency = currencies.find(c => c.code === savedCurrency);
+            if (currency) {
+              setCurrentCurrency(currency);
+            }
+          }
         }
-      } else {
+      } catch (adminSettingsError) {
+        console.warn('Could not load admin settings', adminSettingsError);
         // Fallback to localStorage for user preference
         const savedCurrency = localStorage.getItem('selectedCurrency');
         if (savedCurrency) {
@@ -207,20 +219,24 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      // Load exchange rates if available
-      const { data: rates } = await supabase
-        .from('exchange_rates')
-        .select('*')
-        .order('updated_at', { ascending: false })
-        .limit(1);
+      // Load exchange rates if available, but don't fail
+      try {
+        const { data: rates } = await supabase
+          .from('exchange_rates')
+          .select('*')
+          .order('updated_at', { ascending: false })
+          .limit(1);
 
-      if (rates && rates.length > 0) {
-        const rateData = rates[0].rates as Record<string, number>;
-        const updatedCurrencies = currencies.map(currency => ({
-          ...currency,
-          rate: rateData[currency.code] || currency.rate
-        }));
-        setCurrencies(updatedCurrencies);
+        if (rates && rates.length > 0) {
+          const rateData = rates[0].rates as Record<string, number>;
+          const updatedCurrencies = currencies.map(currency => ({
+            ...currency,
+            rate: rateData[currency.code] || currency.rate
+          }));
+          setCurrencies(updatedCurrencies);
+        }
+      } catch (exchangeRatesError) {
+        console.warn('Could not load exchange rates', exchangeRatesError);
       }
 
     } catch (error) {
@@ -323,7 +339,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     // Save to localStorage for user preference
     localStorage.setItem('selectedCurrency', currencyCode);
 
-    // If user is admin, also update the system default
+    // If user is admin, also update the system default, but don't fail
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
@@ -362,7 +378,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         }
       }
     } catch (error) {
-      console.error('Error saving currency preference:', error);
+      console.warn('Error saving currency preference to database (expected if tables not set up):', error);
     }
   };
 
@@ -372,34 +388,58 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
       // Using USD as base currency
       const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
 
-      if (!response.ok) {
-        throw new Error(`Failed to fetch exchange rates: ${response.status}`);
+      let validRates: Record<string, number>;
+
+      if (response.ok) {
+        const data = await response.json();
+        const rates = data.rates;
+
+        // Ensure we have rates for all supported currencies
+        const supportedCurrencyCodes = SUPPORTED_CURRENCIES.map(c => c.code);
+        validRates = {};
+
+        // Add USD rate (base currency)
+        validRates['USD'] = 1;
+
+        // Add rates for supported currencies
+        supportedCurrencyCodes.forEach(code => {
+          if (code !== 'USD' && rates[code]) {
+            validRates[code] = rates[code];
+          } else if (code !== 'USD') {
+            // Use default rate if not found
+            const defaultCurrency = SUPPORTED_CURRENCIES.find(c => c.code === code);
+            if (defaultCurrency) validRates[code] = defaultCurrency.rate;
+          }
+        });
+      } else {
+        // Fallback to mock data if API fails
+        validRates = {
+          'USD': 1,
+          'EUR': 0.85,
+          'GBP': 0.73,
+          'JPY': 110,
+          'CAD': 1.25,
+          'AUD': 1.35,
+          'CHF': 0.92,
+          'CNY': 6.4,
+          'NGN': 1486, // Updated to current rate
+          'ZAR': 14.5,
+          'INR': 74,
+          'BRL': 5.2
+        };
       }
 
-      const data = await response.json();
-      const rates = data.rates;
-
-      // Ensure we have rates for all supported currencies
-      const supportedCurrencyCodes = SUPPORTED_CURRENCIES.map(c => c.code);
-      const validRates: Record<string, number> = {};
-
-      // Add USD rate (base currency)
-      validRates['USD'] = 1;
-
-      // Add rates for supported currencies
-      supportedCurrencyCodes.forEach(code => {
-        if (code !== 'USD' && rates[code]) {
-          validRates[code] = rates[code];
-        }
-      });
-
-      // Save to database
-      await supabase
-        .from('exchange_rates')
-        .insert({
-          rates: validRates,
-          updated_at: new Date().toISOString()
-        });
+      // Try to save to database, but don't fail if it doesn't work
+      try {
+        await supabase
+          .from('exchange_rates')
+          .insert({
+            rates: validRates,
+            updated_at: new Date().toISOString()
+          });
+      } catch (dbError) {
+        console.warn('Could not save rates to database (expected if table not set up)', dbError);
+      }
 
       // Update local state
       const updatedCurrencies = currencies.map(currency => ({
@@ -412,7 +452,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     } catch (error) {
       console.error('Error updating exchange rates:', error);
 
-      // Fallback to mock data if API fails
+      // Fallback to mock data if everything fails
       const mockRates: Record<string, number> = {
         'USD': 1,
         'EUR': 0.85,
@@ -428,13 +468,17 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         'BRL': 5.2
       };
 
-      // Save mock data to database
-      await supabase
-        .from('exchange_rates')
-        .insert({
-          rates: mockRates,
-          updated_at: new Date().toISOString()
-        });
+      // Try to save mock data to database, but don't fail if it doesn't work
+      try {
+        await supabase
+          .from('exchange_rates')
+          .insert({
+            rates: mockRates,
+            updated_at: new Date().toISOString()
+          });
+      } catch (dbError) {
+        console.warn('Could not save mock rates to database', dbError);
+      }
 
       // Update local state with mock data
       const updatedCurrencies = currencies.map(currency => ({
@@ -446,15 +490,17 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   };
 
   const updateCustomRates = async (customRates: Record<string, number>) => {
-    // Save custom rates to database
-    const { error } = await supabase
-      .from('exchange_rates')
-      .insert({
-        rates: customRates,
-        updated_at: new Date().toISOString()
-      });
-
-    if (error) throw error;
+    // Try to save custom rates to database, but don't fail
+    try {
+      await supabase
+        .from('exchange_rates')
+        .insert({
+          rates: customRates,
+          updated_at: new Date().toISOString()
+        });
+    } catch (error) {
+      console.warn('Error saving custom rates to database (expected if table not set up):', error);
+    }
 
     // Update local state with custom rates
     const updatedCurrencies = currencies.map(currency => ({
